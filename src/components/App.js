@@ -7,7 +7,7 @@ function App() {
 	return (
 		<div className="App">
 			<Nav />
-			<HogContainer />
+			<HogContainer hogsData={hogs}/>
 		</div>
 	);
 }

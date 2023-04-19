@@ -2,12 +2,13 @@ import React from "react";
 import HogFront from './HogFront';
 import HogBack from './HogBack';
 
-function HogCard() {
+function HogCard({hog, flipHog }) {
+
     return (
-        <div>
-            HogCard
-            <HogFront />
-            <HogBack />
+        <div >
+            {hog.flipped
+            ? <HogBack hog={hog} flipHog={flipHog} />
+            : <HogFront hog={hog} flipHog={flipHog}/> }
         </div>
     )
 }
