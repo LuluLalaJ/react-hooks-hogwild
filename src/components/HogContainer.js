@@ -6,6 +6,7 @@ function HogContainer({ hogsData }) {
     const updatedHogs = hogsData.map((hog, index) => {return {...hog, id: index + 1, flipped: false}})
     const [hogs, setHogs] = useState(updatedHogs)
     const [filter, setFilter] = useState('All')
+    const [sortBy, setSortBy] = useState('None')
 
     function flipHog(flippedHog) {
         const flippedHogs = hogs.map(hog => {
@@ -30,10 +31,16 @@ function HogContainer({ hogsData }) {
     const filteredHogs = hogs.filter(hog => filter === "All" || filter === hog.greased)
 
     function sortHogs(e) {
-        console.log(e.target.value)
+        setSortBy(e.target.value)
     }
 
-    const renderHogs = filteredHogs.map(hog => <HogCard key={hog.id} hog={hog} flipHog={flipHog} />)
+    const renderHogs = filteredHogs
+    .sort((hog1, hog2) => {
+        if (sortBy === "Weight") return hog1.weight - hog2.weight;
+        if (sortBy === 'Name') return hog1.name.toLowerCase().localeCompare(hog2.name.toLowerCase())
+    })
+    .map(hog => <HogCard key={hog.id} hog={hog} flipHog={flipHog} />)
+
 
     return (
         <div className="ui grid container">
